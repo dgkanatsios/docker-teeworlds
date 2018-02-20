@@ -1,9 +1,6 @@
 #!/bin/bash
 echo "Start processing"
 
-connected=0
-echo $connected > /tmp/connected
-
 while IFS= read -r line
 do
     #echo line so that docker can gather its logs from stdout
@@ -31,6 +28,17 @@ do
         #((..)) is the way for integer arithmetics on bash
         connected=$(($connected+$toAdd))
         echo $connected > /tmp/connected
+
+        #following are specified on Docker image creation
+        #SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY>
+        #RESOURCE_GROUP='teeworlds'
+        #CONTAINER_GROUP_NAME='teeserver1'
+
+        #we're using wget in the Dockerfile as this results in a smaller Docker image
+        #curl -d "[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" -H "Content-Type: application/json" -X POST $SET_SESSIONS_URL &
+        wget -O- --post-data="[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" --header=Content-Type:application/json "$SET_SESSIONS_URL" &
+        #wget is sent to background so that it won't block
+
     fi 
 done
 

@@ -3,7 +3,7 @@ FROM debian:stretch-slim
 ENV GAME_TYPE ctf
 
 RUN apt-get update \
- && apt-get install -y teeworlds-server pwgen \
+ && apt-get install -y teeworlds-server pwgen wget \
  && apt-get clean all
 
 COPY * /
