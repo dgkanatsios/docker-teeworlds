@@ -8,10 +8,9 @@ echo 'sv_name ' $SERVER_NAME >> /${GAME_TYPE}.cfg
 echo "sv_rcon_password $(pwgen -s 12 1)" >> /${GAME_TYPE}.cfg
 cat /${GAME_TYPE}.cfg
 
-connected=5
+#initialize the connected file
+connected=0
 echo $connected > /tmp/connected
-
-#(crontab -l ; echo "* * * * * ./cronjob.sh") | crontab -
 
 #capturing line by line on bash
 #https://unix.stackexchange.com/questions/117501/in-bash-script-how-to-capture-stdout-line-by-line
