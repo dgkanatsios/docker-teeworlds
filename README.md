@@ -5,7 +5,7 @@
 docker-teeworlds
 ================
 
-Docker image for running the [Teeworlds](https://www.teeworlds.com) server.
+Docker image for running the [Teeworlds](https://www.teeworlds.com) server. You can find it on Docker Hub [here](https://hub.docker.com/r/dgkanatsios/docker-teeworlds/).
 
 A fork of https://github.com/virtualroot/docker-teeworlds that works with [AzureContainersInstancesManagement](https://github.com/dgkanatsios/AzureContainerInstancesManagement) project by extending it with:
 
